@@ -6,10 +6,14 @@ public class Ball : MonoBehaviour
 {
     private Rigidbody rb;
     public bool smash;
-
+    Vector3 startPos;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    private void Start()
+    {
+        startPos = transform.position;
     }
 
     private void Update()
@@ -53,12 +57,16 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionStay(Collision target)
     {
-        if(!smash || target.gameObject.tag == "Finish")
+        if(!smash)
         {
             rb.velocity = new Vector3(0, 50 * Time.deltaTime * 5, 0);
             smash = false;
+        }
+        if (target.gameObject.tag == "Finish")
+        {
             Debug.Log("Win");
-            //LevelSpawner.Instance.Init();
+            transform.position = startPos;
+            LevelSpawner.Instance.Init();
         }
     }
 }
