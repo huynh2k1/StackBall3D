@@ -57,6 +57,8 @@ public class Ball : MonoBehaviour
         {
             rb.velocity = new Vector3(0, 50 * Time.deltaTime * 5, 0);
             smash = false;
+            Debug.Log("Win");
+            //LevelSpawner.Instance.Init();
         }
     }
 }

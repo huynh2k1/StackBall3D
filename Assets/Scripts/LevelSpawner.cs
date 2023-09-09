@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
 {
+    public static LevelSpawner Instance;    
     public GameObject[] model;
 
     public GameObject[] modelPrefab = new GameObject[4];
@@ -16,13 +17,22 @@ public class LevelSpawner : MonoBehaviour
 
     float i = 0;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
+    {
+        Init();
+    }
+    public void Init()
     {
         if (level > 9)
             addOn = 0;
 
         ModelSelection();
-        for(i = 0; i > -level - addOn; i -= 0.5f)
+        for (i = 0; i > -level - addOn; i -= 0.5f)
         {
             if (level <= 20)
                 temp1 = Instantiate(modelPrefab[Random.Range(0, 2)]);
